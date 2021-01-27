@@ -1,0 +1,13 @@
+Package: whatsalyze
+Title: Analyze your whatsapp chats!
+Version: 0.0.0.9000
+Authors@R: person('Emanuel', 'Sommer', email = 'emanuel_sommer@gmx.de', role = c('cre', 'aut'))
+Description: Get insights about your whatsapp chats by using this shiny dashboard. For example visualize the frequency of the emojis used in the chat.
+License: MIT + file LICENSE
+Imports: 
+    config,
+    golem,
+    shiny
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
