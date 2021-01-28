@@ -3,14 +3,40 @@
 #' @param request Internal parameter for `{shiny}`. 
 #'     DO NOT REMOVE.
 #' @import shiny
+#' @import shinydashboard
 #' @noRd
 app_ui <- function(request) {
   tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here 
-    fluidPage(
-      h1("whatsalyze")
+    dashboardPage(
+      dashboardHeader(title = "Whatsalyze"),
+      dashboardSidebar(
+        sidebarMenu(
+          menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
+          menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+        )
+      ),
+      dashboardBody(
+        tabItems(
+          # First tab content
+          tabItem(tabName = "dashboard",
+                  fluidRow(
+                    box(width = NULL,
+                        fileInput("file",label = "Choose chat.txt file",
+                                  accept = c(".txt"))),
+                    
+                    valueBoxOutput("total_words")
+                  )
+          ),
+          
+          # Second tab content
+          tabItem(tabName = "widgets",
+                  h2("Widgets tab content")
+          )
+        )
+      )
     )
   )
 }
