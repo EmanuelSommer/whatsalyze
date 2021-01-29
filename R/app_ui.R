@@ -11,29 +11,77 @@ app_ui <- function(request) {
     golem_add_external_resources(),
     # List the first level UI elements here 
     dashboardPage(
-      dashboardHeader(title = "Whatsalyze"),
+      skin = "black",
+      dashboardHeader(
+        title = "Whatsalyze",
+        dropdownMenu(
+          type = "notifications",
+          icon = icon("link"),
+          headerText = "Links",
+          notificationItem("Visit my Github", icon = icon("github"),
+                           href = "https://github.com/EmanuelSommer")
+        )
+      ),
       dashboardSidebar(
         sidebarMenu(
-          menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-          menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+          menuItem(text = "Overview", 
+                   menuSubItem(text = "Stats", tabName = "over_stats"),
+                   menuSubItem(text = "Activity", tabName = "over_act"),
+                   icon = icon("glasses")
+          ),
+          menuItem(text = "Compare them!", 
+                   menuSubItem(text = "Overall", tabName = "comp_overall"),
+                   menuSubItem(text = "By message", tabName = "comp_messages"),
+                   menuSubItem(text = "Emojis", tabName = "comp_emojis"),
+                   icon = icon("chart-bar")
+          )
+        ),
+        tags$br(),
+        fluidRow(
+          column(2),
+          column(
+            8,
+            actionButton(
+              "inputbutton",
+              label = "Upload file",
+              icon = icon("upload")
+            )
+          ),
+          column(2)
         )
       ),
       dashboardBody(
+        tags$style(".small-box.bg-yellow { background-color: #58E370 !important; color: #3C252B !important; }"),
         tabItems(
-          # First tab content
-          tabItem(tabName = "dashboard",
-                  fluidRow(
-                    box(width = NULL,
-                        fileInput("file",label = "Choose chat.txt file",
-                                  accept = c(".txt"))),
-                    
-                    valueBoxOutput("total_words")
-                  )
+          # Overview ###############################################
+          tabItem(
+            tabName = "over_stats",
+            tags$div(
+              style = "text-align: center;color: #3C252B;font-weight: bold;",
+              tags$h2(
+                emo::ji_glue(":detective: Let's have a look! :detective:")
+              )
+            ),
+            tags$br(),
+            mod_over_stats_ui("over_stats_ui")
+          ),
+          tabItem(
+            tabName = "over_act",
+            h2("activity plots")
           ),
           
-          # Second tab content
-          tabItem(tabName = "widgets",
-                  h2("Widgets tab content")
+          # Compare them  ##########################################
+          tabItem(
+            tabName = "comp_overall",
+            h2("Overall stats compare plots")
+          ),
+          tabItem(
+            tabName = "comp_messages",
+            h2("Compare per messages plots")
+          ),
+          tabItem(
+            tabName = "comp_emojis",
+            h2("Compare emojis plots (choose user input)")
           )
         )
       )

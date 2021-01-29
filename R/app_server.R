@@ -6,17 +6,36 @@
 #' @noRd
 app_server <- function(input, output, session ) {
   # List the first level callModules here
-  data <- reactive({
+  
+  ##########################################################
+  #               file input / data read
+  ##########################################################
+  # Show Modal after opening the application for file input:
+  showModal(
+    choose_file_input_dialog(initial = TRUE)
+  )
+  # Show Modal to update file input when using the corresponding action button
+  observeEvent(input$inputbutton, handlerExpr = {
+    showModal(
+      choose_file_input_dialog()
+    )
+  })
+  
+  # global reactive values for all modules
+  r <- reactiveValues(
+    data = NULL
+  )
+  # main colors: "#58E370" "#EBE126" "#DE793B" "#A84448" "#3C252B"
+  r$data <- reactive({
     if (!is.null(input$file)) {
       prep_data(
         rwhatsapp::rwa_read(input$file$datapath)
       )
     }
   })
-  output$total_words <- renderValueBox({
-    valueBox(value = sum(data()$n_words),
-             "Total words",
-             icon = icon("thumbs-up"),
-             color = "aqua")
-  })
+  
+  ##########################################################
+  #                   Analysis
+  ##########################################################
+  callModule(mod_over_stats_server, "over_stats_ui", r = r)
 }
