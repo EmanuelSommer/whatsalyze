@@ -29,3 +29,5 @@ RoxygenNote: 7.1.1
 Suggests: 
     testthat
 Roxygen: list(markdown = TRUE)
+URL: https://github.com/EmanuelSommer/whatsalyze
+BugReports: https://github.com/EmanuelSommer/whatsalyze/issues
