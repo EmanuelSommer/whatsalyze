@@ -24,9 +24,7 @@ app_ui <- function(request) {
       ),
       dashboardSidebar(
         sidebarMenu(
-          menuItem(text = "Overview", 
-                   menuSubItem(text = "Stats", tabName = "over_stats"),
-                   menuSubItem(text = "Activity", tabName = "over_act"),
+          menuItem(text = "Overview", tabName = "over_stats",
                    icon = icon("glasses")
           ),
           menuItem(text = "Compare them!", 
@@ -63,11 +61,9 @@ app_ui <- function(request) {
               )
             ),
             tags$br(),
-            mod_over_stats_ui("over_stats_ui")
-          ),
-          tabItem(
-            tabName = "over_act",
-            h2("activity plots")
+            mod_over_stats_ui("over_stats_ui"),
+            tags$br(),
+            mod_over_act_ui("over_act_ui")
           ),
           
           # Compare them  ##########################################

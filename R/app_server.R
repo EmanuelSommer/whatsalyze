@@ -38,4 +38,5 @@ app_server <- function(input, output, session ) {
   #                   Analysis
   ##########################################################
   callModule(mod_over_stats_server, "over_stats_ui", r = r)
+  callModule(mod_over_act_server, "over_act_ui", r)
 }
