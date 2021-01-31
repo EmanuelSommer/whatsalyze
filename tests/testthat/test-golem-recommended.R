@@ -13,7 +13,8 @@ test_that("app server", {
 })
 
 # Configure this test to fit your need
-test_that(
+if (interactive()) {
+  test_that(
   "app launches",{
     skip_on_cran()
     skip_on_travis()
@@ -30,6 +31,8 @@ test_that(
     x$kill()
   }
 )
+}
+
 
 
 

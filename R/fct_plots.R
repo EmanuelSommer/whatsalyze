@@ -4,36 +4,48 @@
 #' @param data tibble provided by the `prep_data()` function
 #'
 #' @returnggplot2 object
-#' 
+#'
 #' @import ggplot2
 #' @import dplyr
 #' @author Emanuel Sommer
 plot_weekday_activity <- function(data) {
   data %>%
     mutate(wday_ord = ordered(wday,
-                              levels = c("2", "3", "4", "5", "6", "7", "1"),
-                              labels = c("Monday", "Tuesday", "Wednesday",
-                                         "Thursday", "Friday", "Saturday",
-                                         "Sunday"))) %>%
+      levels = c("2", "3", "4", "5", "6", "7", "1"),
+      labels = c(
+        "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday",
+        "Sunday"
+      )
+    )) %>%
     group_by(wday_ord) %>%
-    summarize(n_mess = n(),
-              n_words = sum(n_words), 
-              .groups = 'drop') %>%
-    mutate(mess_rel = n_mess / nrow(data),
-           words_rel = n_words / sum(data$n_words)) %>%
+    summarize(
+      n_mess = n(),
+      n_words = sum(n_words),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      mess_rel = n_mess / nrow(data),
+      words_rel = n_words / sum(data$n_words)
+    ) %>%
     select(wday_ord, mess_rel, words_rel) %>%
     tidyr::pivot_longer(-wday_ord,
-                        names_to = "type",
-                        values_to = "rel_value") %>%
+      names_to = "type",
+      values_to = "rel_value"
+    ) %>%
     ggplot(aes(x = wday_ord, y = rel_value, fill = type)) +
-    geom_col(position = "dodge") +
-    scale_x_discrete(limits = c("Monday", "Tuesday", "Wednesday",
-                                "Thursday", "Friday", "Saturday",
-                                "Sunday")) +
-    scale_fill_manual(name = "",
-                      values = c("#58E370", "#3C252B"),
-                      labels = c("Messages", "Words")) +
-    labs(x = "", y = "Relative frequency") + 
+    geom_col(position = "dodge", alpha = 0.8) +
+    scale_x_discrete(limits = c(
+      "Monday", "Tuesday", "Wednesday",
+      "Thursday", "Friday", "Saturday",
+      "Sunday"
+    )) +
+    scale_fill_manual(
+      name = "",
+      values = c("#58E370", "#3C252B"),
+      labels = c("Messages", "Words")
+    ) +
+    labs(x = "", y = "Relative frequency") +
     theme_classic() +
     theme(legend.position = "bottom")
 }
@@ -48,53 +60,222 @@ plot_weekday_activity <- function(data) {
 #'  "Thursday", "Friday", "Saturday", "Sunday")
 #'
 #' @return ggplot2 object
-#' 
+#'
 #' @import dplyr
 #' @import ggplot2
 #' @author Emanuel Sommer
 plot_day_activity <- function(
-  data, 
-  days = c("Monday", "Tuesday", "Wednesday",
-          "Thursday", "Friday", "Saturday",
-          "Sunday")) {
-  valid_days <- c("Sunday", "Monday", "Tuesday", "Wednesday",
-                  "Thursday", "Friday", "Saturday")
-  checkmate::assert_character(days, any.missing = FALSE,
-                              unique = TRUE, max.len = 7)
+                              data,
+                              days = c(
+                                "Monday", "Tuesday", "Wednesday",
+                                "Thursday", "Friday", "Saturday",
+                                "Sunday"
+                              )) {
+  valid_days <- c(
+    "Sunday", "Monday", "Tuesday", "Wednesday",
+    "Thursday", "Friday", "Saturday"
+  )
+  checkmate::assert_character(days,
+    any.missing = FALSE,
+    unique = TRUE, max.len = 7
+  )
   stopifnot(all(days %in% valid_days))
   num_day <- vapply(days, function(day) {
     which(day == valid_days)
   }, FUN.VALUE = numeric(1))
-  
+
   data %>%
     mutate(hour = as.factor(lubridate::hour(time))) %>%
     filter(wday %in% num_day) %>%
     group_by(hour) %>%
-    summarize(n_mess = n(),
-              n_words = sum(n_words), 
-              .groups = 'drop') %>%
-    mutate(mess_rel = n_mess / nrow(data),
-           words_rel = n_words / sum(data$n_words)) %>%
+    summarize(
+      n_mess = n(),
+      n_words = sum(n_words),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      mess_rel = n_mess / nrow(data),
+      words_rel = n_words / sum(data$n_words)
+    ) %>%
     select(hour, mess_rel, words_rel) %>%
     tidyr::pivot_longer(-hour,
-                        names_to = "type",
-                        values_to = "rel_value") %>%
+      names_to = "type",
+      values_to = "rel_value"
+    ) %>%
     ggplot(aes(x = hour, y = rel_value, fill = type)) +
-    geom_col(position = "dodge") +
+    geom_col(position = "dodge", alpha = 0.8) +
     scale_x_discrete(limits = paste(0:23)) +
-    scale_fill_manual(name = "",
-                      values = c("#58E370", "#3C252B"),
-                      labels = c("Messages", "Words")) +
-    labs(x = "Hour of the day", y = "Relative frequency") + 
+    scale_fill_manual(
+      name = "",
+      values = c("#58E370", "#3C252B"),
+      labels = c("Messages", "Words")
+    ) +
+    labs(x = "Hour of the day", y = "Relative frequency") +
     theme_classic() +
     theme(legend.position = "bottom")
 }
 
 
-# barplot total words by users
 
-# barplot total messages by user
+#' Barplot displaying the relative frequencies of the users
+#'
+#' @param data tibble provided by the `prep_data()` function
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Emanuel Sommer
+plot_total_words <- function(data) {
+  data %>%
+    group_by(author) %>%
+    summarize(
+      n_words = sum(n_words),
+      n_mess = n(),
+      .groups = "drop"
+    ) %>%
+    mutate(
+      n_rel_words = n_words / sum(data$n_words),
+      n_rel_mess = n_mess / nrow(data)
+    ) %>%
+    select(author, n_rel_words, n_rel_mess) %>%
+    tidyr::pivot_longer(-author,
+      names_to = "type",
+      values_to = "rel_value"
+    ) %>%
+    ggplot(aes(x = author, y = rel_value, fill = type)) +
+    geom_col(position = "dodge", alpha = 0.8) +
+    labs(x = "", y = "Relative frequencies") +
+    scale_fill_manual(
+      name = "",
+      values = c("#58E370", "#3C252B"),
+      labels = c("Messages", "Words")
+    ) +
+    coord_flip() +
+    theme_classic() +
+    theme(legend.position = "bottom")
+}
 
-# boxplots emojis/message and words/message x= users
 
-# plot barchart flipped top k emojis (author, k in [3,20]?)
+
+#' Density  plot of emojis or words per message (distinct users by fill/color)
+#'
+#' @param data tibble provided by the `prep_data()` function
+#' @param emo logical whether to plot emojis or words per message
+#' @param bw bandwidth of the gaussian kernels (default: `stats::bw.nrd0()`)
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Emanuel Sommer
+plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
+  color_ramp <- grDevices::colorRampPalette(c(
+    "#58E370", "#EBE126",
+    "#DE793B", "#A84448",
+    "#3C252B"
+  ))
+  type <- ifelse(emo, "n_emojis", "n_words")
+  bw <- ifelse(is.null(bw), stats::bw.nrd0(data[[type]]), bw)
+  axis_text <- ifelse(emo, "Emoji", "Words")
+  data %>%
+    select(c("author", type)) %>%
+    tidyr::pivot_longer("author") %>%
+    ggplot(aes_string(x = type, fill = "value", col = "value")) +
+    geom_density(alpha = 0.5, bw = bw) +
+    labs(x = paste(axis_text, "per message"), y = "") +
+    scale_fill_manual(
+      name = "",
+      values = color_ramp(length(unique(data$author)))
+    ) +
+    scale_color_manual(
+      name = "",
+      values = color_ramp(length(unique(data$author)))
+    ) +
+    theme_classic() +
+    theme(
+      axis.text.y = element_blank(),
+      axis.ticks.y = element_blank()
+    )
+}
+
+
+#' Boxplot of emojis or words per message (distinct users)
+#'
+#' @param data tibble provided by the `prep_data()` function
+#' @param emo logical whether to plot emojis or words per message
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Emanuel Sommer
+plot_emoji_words_per_mess_box <- function(data, emo = TRUE) {
+  color_ramp <- colorRampPalette(c(
+    "#58E370", "#EBE126",
+    "#DE793B", "#A84448",
+    "#3C252B"
+  ))
+  type <- ifelse(emo, "n_emojis", "n_words")
+  axis_text <- ifelse(emo, "Emoji", "Words")
+  data %>%
+    select(c("author", type)) %>%
+    tidyr::pivot_longer("author") %>%
+    ggplot(aes_string(y = type, x = "value")) +
+    geom_boxplot(alpha = 0.8, fill = "#58E370", col = "#3C252B") +
+    labs(y = paste(axis_text, "per message"), x = "") +
+    coord_flip() +
+    theme_classic()
+}
+
+
+#' Barchart to display the frequency of the top 10 used emojis of a given user
+#'
+#' @param data tibble provided by the `prep_data()` function
+#' @param authors character or factor vector conatining valid authors from the data$author column
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Emanuel Sommer
+plot_top10_emojis <- function(data, authors) {
+  stopifnot(all(authors %in% unique(data$author)))
+  filtered_data <- data %>%
+    filter(author %in% authors)
+  emojis <- unlist(filtered_data$emoji_name)
+  emojis <- stringr::str_remove(emojis, ":.*")
+  tibble(emojis = emojis) %>%
+    group_by(emojis) %>%
+    summarize(
+      n = n(),
+      .groups = "drop"
+    ) %>%
+    arrange(desc(n)) %>%
+    slice_head(n = 10) %>%
+    left_join(emo::jis, by = c("emojis" = "name")) %>%
+    distinct(emojis, .keep_all = TRUE) %>%
+    select(emoji, n) %>%
+    ggplot(aes(x = forcats::fct_reorder(emoji, n, .desc = FALSE), y = n)) +
+    geom_col(fill = "#3C252B", col = "#3C252B", alpha = 0.8) +
+    labs(x = "", y = "Frequency") +
+    coord_flip() +
+    theme_classic() +
+    theme(axis.text.y = ggtext::element_markdown(size = 22))
+
+  # without emo package:
+  # filtered_data <- data %>%
+  #   filter(author %in% authors)
+  # emojis <- unlist(filtered_data$emoji)
+  # tibble(emojis = emojis) %>%
+  #   group_by(emojis) %>%
+  #   summarize(n = n(),
+  #             .groups = 'drop') %>%
+  #   arrange(desc(n)) %>%
+  #   slice_head(n = 10) %>%
+  #   ggplot(aes(x = forcats::fct_reorder(emojis, n, .desc = FALSE), y = n)) +
+  #   geom_col(fill = "#3C252B", col = "#3C252B", alpha = 0.8) +
+  #   labs(x = "", y = "Frequency") +
+  #   coord_flip() +
+  #   theme_classic()
+}

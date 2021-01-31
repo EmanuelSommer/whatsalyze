@@ -18,8 +18,8 @@ app_ui <- function(request) {
           type = "notifications",
           icon = icon("link"),
           headerText = "Links",
-          notificationItem("Visit my Github", icon = icon("github"),
-                           href = "https://github.com/EmanuelSommer")
+          notificationItem("Source code on Github", icon = icon("github"),
+                           href = "https://github.com/EmanuelSommer/whatsalyze")
         )
       ),
       dashboardSidebar(
@@ -69,15 +69,33 @@ app_ui <- function(request) {
           # Compare them  ##########################################
           tabItem(
             tabName = "comp_overall",
-            h2("Overall stats compare plots")
+            fluidRow(
+              column(2),
+              column(
+                8,
+                tags$br(),
+                shinydashboard::box(
+                  title = "Overall comparison",
+                  width = NULL,
+                  tags$div(
+                    style = "text-align: center;color: #3C252B;font-weight: bold;",
+                    tags$h2(
+                      "Message and word frequencies"
+                    )
+                  ),
+                  plotOutput("comp_overall_plot")
+                )
+              ),
+              column(2)
+            )
           ),
           tabItem(
             tabName = "comp_messages",
-            h2("Compare per messages plots")
+            mod_comp_messages_ui("comp_messages_ui")
           ),
           tabItem(
             tabName = "comp_emojis",
-            h2("Compare emojis plots (choose user input)")
+            mod_comp_emojis_ui("comp_emojis_ui")
           )
         )
       )

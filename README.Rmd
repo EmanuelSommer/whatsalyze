@@ -2,7 +2,6 @@
 output: github_document
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -13,42 +12,25 @@ knitr::opts_chunk$set(
 )
 ```
 
-# whatsalyze
+# whatsalyze <img src="inst/app/www/hex-whatsalyze.png" align="right" width="120" />
 
-<!-- badges: start -->
-<!-- badges: end -->
 
-The goal of whatsalyze is to ...
+
+Whatsalyze provides a shiny app to analyze your whatsapp chats! You can easily import your chats as exported `chat.txt` files and get some fun insights! `r emo::ji("detective")`
+
+It is written using the golem framework for production-grade and robust shiny apps. The shiny app is embedded inside the structure of an R package which allows not only a concise and well structured workflow but also the integration of documentation (roxygen2) and tests (testthat). 
 
 ## Installation
 
-You can install the released version of whatsalyze from [CRAN](https://CRAN.R-project.org) with:
+You can install the current version of `whatsalyze` from Github with:
 
 ``` r
-install.packages("whatsalyze")
+# install.packages("devtools")
+devtools::install_github("EmanuelSommer/whatsalyze")
 ```
 
-## Example
+## Use locally
 
-This is a basic example which shows you how to solve a common problem:
+The nice thing about running this app locally is, that your sensible chat data does not leave the comfort of your own computer! And it is quite easy too.
 
-```{r example}
-library(whatsalyze)
-## basic example code
-```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!

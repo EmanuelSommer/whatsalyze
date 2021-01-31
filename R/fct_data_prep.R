@@ -34,7 +34,8 @@ prep_data <- function(rwa_data) {
       n_words = stringr::str_count(text, pattern = "\\W+"), # count words
       n_emojis = purrr::map_dbl(emoji, length), # count emojis
       wday = lubridate::wday(time) # numeric (1 is Sunday)
-    )
+    ) %>%
+    arrange(time)
 }
 
 

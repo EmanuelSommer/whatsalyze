@@ -34,14 +34,14 @@ mod_over_act_ui <- function(id){
               "Activity by hour and days"
             )
           ),
-          plotOutput(ns("act_by_day")),
           selectInput(ns("days"),
                       label = "Days to analyze",
                       choices = c("Monday", "Tuesday", "Wednesday",
                                   "Thursday", "Friday", "Saturday",
                                   "Sunday"),
                       multiple = TRUE,
-                      selected = "Monday")
+                      selected = "Monday"),
+          plotOutput(ns("act_by_day"))
         )
       )
     )
