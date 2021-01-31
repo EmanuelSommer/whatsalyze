@@ -75,7 +75,7 @@ app_ui <- function(request) {
                 8,
                 tags$br(),
                 shinydashboard::box(
-                  title = "Overall comparison",
+                  title = "",
                   width = NULL,
                   tags$div(
                     style = "text-align: center;color: #3C252B;font-weight: bold;",
@@ -84,6 +84,17 @@ app_ui <- function(request) {
                     )
                   ),
                   plotOutput("comp_overall_plot")
+                ),
+                shinydashboard::box(
+                  title = "",
+                  width = NULL,
+                  tags$div(
+                    style = "text-align: center;color: #3C252B;font-weight: bold;",
+                    tags$h2(
+                      "Messages per day over time"
+                    )
+                  ),
+                  plotly::plotlyOutput("ts_mess_per_day_plot")
                 )
               ),
               column(2)

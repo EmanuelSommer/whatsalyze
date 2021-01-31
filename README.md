@@ -53,6 +53,7 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
       - Activity by weekday
       - Activity by hour and weekday
   - Visualization of message and word frequencies by user
+  - Visualization of time vs messages sent per day (also by user)
   - Density plots (Gaussian kernel variable bandwidth) of words and
     emojis per message by user respectively
   - Boxplot of words and emojis per message by user respectively

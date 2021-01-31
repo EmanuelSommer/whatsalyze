@@ -165,6 +165,43 @@ plot_total_words <- function(data) {
           text = element_text(size = 16))
 }
 
+#' PLot time against messages sent per day (scatterplot + smoothing line for trends)
+#'
+#' @param data tibble provided by the `prep_data()` function
+#'
+#' @return plotly object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Emanuel Sommer
+plot_ts_mess_per_day <- function(data) {
+  color_ramp <- grDevices::colorRampPalette(c(
+    "#58E370", "#EBE126",
+    "#DE793B", "#A84448",
+    "#3C252B"
+  ))
+  
+  plot_gg <- data %>%
+    mutate(day = as.Date(time)) %>%
+    group_by(day, author) %>%
+    summarize(n_mess = n(),
+              .groups = 'drop') %>%
+    ggplot(aes(x = day, y = n_mess, col = author)) +
+    geom_point(alpha = 0.5) +
+    geom_smooth(se = FALSE) +
+    labs(x = "", y = "Messages per day") +
+    scale_color_manual(
+      name = "",
+      values = color_ramp(length(unique(data$author)))
+    ) +
+    theme_classic() +
+    theme(
+      text = element_text(size = 13),
+      legend.text = element_text(size = 13),
+      axis.text = element_text(size = 13)
+    ) 
+  plotly::ggplotly(plot_gg)
+}
 
 
 #' Density  plot of emojis or words per message (distinct users by fill/color)

@@ -45,6 +45,10 @@ app_server <- function(input, output, session ) {
     shiny::req(r$data())
     plot_total_words(r$data())
   })
+  output$ts_mess_per_day_plot <- plotly::renderPlotly({
+    shiny::req(r$data())
+    plot_ts_mess_per_day(r$data())
+  })
   
   callModule(mod_comp_messages_server, "comp_messages_ui", r = r)
   callModule(mod_comp_emojis_server, "comp_emojis_ui", r = r)
