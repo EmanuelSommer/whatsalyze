@@ -9,6 +9,9 @@ plot_weekday_activity(data)
 \arguments{
 \item{data}{tibble provided by the \code{prep_data()} function}
 }
+\value{
+ggplot2 object
+}
 \description{
 Barplot portraying the chat activity by weekday
 }

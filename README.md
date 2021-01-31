@@ -19,8 +19,41 @@ You can install the current version of `whatsalyze` from Github with:
 devtools::install_github("EmanuelSommer/whatsalyze")
 ```
 
-## Use locally
+## Usage locally
 
 The nice thing about running this app locally is, that your sensible
 chat data does not leave the comfort of your own computer\! And it is
-quite easy too.
+quite easy too\! Just run the following in your R console:
+
+``` r
+whatsalyze::run_app()
+```
+
+## Current features
+
+  - Overall stats
+      - Duration in days
+      - Longest chat streak
+      - Total messages
+      - Total words
+      - Messages per day
+      - Words per day
+  - Activity visualizations
+      - Activity by weekday
+      - Activity by hour and weekday
+  - Visualization of message and word frequencies by user
+  - Density plots (Gaussian kernel variable bandwidth) of words and
+    emojis per message by user respectively
+  - Boxplot of words and emojis per message by user respectively
+  - Visualization of the top 10 emojis used by user
+
+**If you have any suggestions for improvement or issues I would really
+like to hear from you\!**
+
+-----
+
+<center>
+
+👋 **Have fun\!** 👋
+
+</center>

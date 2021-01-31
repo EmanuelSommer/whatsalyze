@@ -3,7 +3,7 @@
 #'
 #' @param data tibble provided by the `prep_data()` function
 #'
-#' @returnggplot2 object
+#' @return ggplot2 object
 #'
 #' @import ggplot2
 #' @import dplyr
@@ -47,7 +47,10 @@ plot_weekday_activity <- function(data) {
     ) +
     labs(x = "", y = "Relative frequency") +
     theme_classic() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom",
+          axis.text = element_text(size = 13),
+          legend.text = element_text(size = 16),
+          text = element_text(size = 16))
 }
 
 
@@ -112,7 +115,10 @@ plot_day_activity <- function(
     ) +
     labs(x = "Hour of the day", y = "Relative frequency") +
     theme_classic() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom",
+          axis.text = element_text(size = 13),
+          legend.text = element_text(size = 16),
+          text = element_text(size = 16))
 }
 
 
@@ -153,7 +159,10 @@ plot_total_words <- function(data) {
     ) +
     coord_flip() +
     theme_classic() +
-    theme(legend.position = "bottom")
+    theme(legend.position = "bottom",
+          axis.text = element_text(size = 16),
+          legend.text = element_text(size = 16),
+          text = element_text(size = 16))
 }
 
 
@@ -182,7 +191,7 @@ plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
     select(c("author", type)) %>%
     tidyr::pivot_longer("author") %>%
     ggplot(aes_string(x = type, fill = "value", col = "value")) +
-    geom_density(alpha = 0.5, bw = bw) +
+    geom_density(alpha = 0.2, bw = bw) +
     labs(x = paste(axis_text, "per message"), y = "") +
     scale_fill_manual(
       name = "",
@@ -194,6 +203,10 @@ plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
     ) +
     theme_classic() +
     theme(
+      legend.position = "bottom",
+      text = element_text(size = 16),
+      legend.text = element_text(size = 16),
+      axis.text = element_text(size = 16),
       axis.text.y = element_blank(),
       axis.ticks.y = element_blank()
     )
@@ -225,7 +238,9 @@ plot_emoji_words_per_mess_box <- function(data, emo = TRUE) {
     geom_boxplot(alpha = 0.8, fill = "#58E370", col = "#3C252B") +
     labs(y = paste(axis_text, "per message"), x = "") +
     coord_flip() +
-    theme_classic()
+    theme_classic() +
+    theme(text = element_text(size = 16),
+          axis.text = element_text(size = 16))
 }
 
 
@@ -261,7 +276,9 @@ plot_top10_emojis <- function(data, authors) {
     labs(x = "", y = "Frequency") +
     coord_flip() +
     theme_classic() +
-    theme(axis.text.y = ggtext::element_markdown(size = 22))
+    theme(text = element_text(size = 16),
+          axis.text = element_text(size = 16),
+          axis.text.y = ggtext::element_markdown(size = 22))
 
   # without emo package:
   # filtered_data <- data %>%
