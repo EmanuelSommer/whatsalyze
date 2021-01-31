@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 
 
-Whatsalyze provides a shiny app to analyze your whatsapp chats! You can easily import your chats as exported `chat.txt` files and get some fun insights! `r emo::ji("detective")`
+Whatsalyze provides a shiny app to analyze your whatsapp chats! You can easily import your chats as exported `<chat>.txt` files and get some fun insights! `r emo::ji("detective")`
 
 It is written using the golem framework for production-grade and robust shiny apps. The shiny app is embedded inside the structure of an R package which allows not only a concise and well structured workflow but also the integration of documentation (roxygen2) and tests (testthat). 
 
@@ -36,6 +36,19 @@ The nice thing about running this app locally is, that your sensible chat data d
 ``` r
 whatsalyze::run_app()
 ```
+
+## Input format
+
+The input format for the `<chat>.txt` files should be the following:
+
+```
+31.01.20, 16:44 - User1: TextTextText
+31.01.20, 16:46 - User2: TextTextText
+11.02.20, 18:00 - User2: TextTextText
+...
+```
+
+For more information on the input format see `rwhatsapp::rwa_read()`.
 
 ## Current features
 

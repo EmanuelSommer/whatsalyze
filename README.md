@@ -2,7 +2,7 @@
 # whatsalyze <img src="inst/app/www/hex-whatsalyze.png" align="right" width="120" />
 
 Whatsalyze provides a shiny app to analyze your whatsapp chats\! You can
-easily import your chats as exported `chat.txt` files and get some fun
+easily import your chats as exported `<chat>.txt` files and get some fun
 insights\! 🕵
 
 It is written using the golem framework for production-grade and robust
@@ -28,6 +28,17 @@ quite easy too\! Just run the following in your R console:
 ``` r
 whatsalyze::run_app()
 ```
+
+## Input format
+
+The input format for the `<chat>.txt` files should be the following:
+
+    31.01.20, 16:44 - User1: TextTextText
+    31.01.20, 16:46 - User2: TextTextText
+    11.02.20, 18:00 - User2: TextTextText
+    ...
+
+For more information on the input format see `rwhatsapp::rwa_read()`.
 
 ## Current features
 
