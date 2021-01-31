@@ -271,6 +271,7 @@ plot_top10_emojis <- function(data, authors) {
     left_join(emo::jis, by = c("emojis" = "name")) %>%
     distinct(emojis, .keep_all = TRUE) %>%
     select(emoji, n) %>%
+    stats::na.omit() %>%
     ggplot(aes(x = forcats::fct_reorder(emoji, n, .desc = FALSE), y = n)) +
     geom_col(fill = "#3C252B", col = "#3C252B", alpha = 0.8) +
     labs(x = "", y = "Frequency") +
