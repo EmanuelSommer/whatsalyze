@@ -10,6 +10,7 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here 
+    shiny.info::busy("spinner"),
     dashboardPage(
       skin = "black",
       dashboardHeader(
