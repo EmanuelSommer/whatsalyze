@@ -186,14 +186,16 @@ plot_ts_mess_per_day <- function(data) {
     group_by(day, author) %>%
     summarize(n_mess = n(),
               .groups = 'drop') %>%
-    ggplot(aes(x = day, y = n_mess, col = author)) +
+    rename(Date = day, Messages = n_mess, Author = author) %>%
+    ggplot(aes(x = Date, y = Messages, col = Author)) +
     geom_point(alpha = 0.5) +
-    geom_smooth(se = FALSE) +
+    geom_smooth(se = FALSE, method = "loess", formula = 'y ~ x') +
     labs(x = "", y = "Messages per day") +
     scale_color_manual(
       name = "",
       values = color_ramp(length(unique(data$author)))
     ) +
+    scale_y_log10() +
     theme_classic() +
     theme(
       text = element_text(size = 13),
