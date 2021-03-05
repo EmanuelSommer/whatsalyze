@@ -81,7 +81,7 @@ mod_over_stats_server <- function(input, output, session, r){
   output$streak <- shinydashboard::renderValueBox({
     shiny::req(r$data())
     shinydashboard::valueBox(get_largest_streak(r$data()[["time"]]),
-                             subtitle = "Longest streak", icon = icon("kiss-wink-heart"),
+                             subtitle = "Longest streak", icon = icon("fire-alt"),
                              color = "yellow", width = NULL
     )
   })
