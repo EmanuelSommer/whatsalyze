@@ -16,14 +16,12 @@
 #' @export
 #' 
 #' @import dplyr
-#' @author Emanuel Sommer
+#' @author Emanuel Sommer / Eleftheria Papavasileiou
 prep_data <- function(rwa_data) {
   # input checks
-  checkmate::assert_tibble(rwa_data,
-                           ncols = 6)
-  checkmate::assert_names(names(rwa_data),
-                          identical.to = c("time", "author", "text",
-                                           "source", "emoji", "emoji_name"))
+  rwa_data <- try(select(rwa_data, "time", "author", "text",
+                         "source", "emoji", "emoji_name"))
+  checkmate::assert_data_frame(rwa_data)
   
   # remove messages from NA authors
   rwa_data <- rwa_data[!is.na(rwa_data$author),]

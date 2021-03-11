@@ -216,7 +216,7 @@ plot_ts_mess_per_day <- function(data) {
 #' @import ggplot2
 #' @import dplyr
 #'
-#' @author Emanuel Sommer
+#' @author Eleftheria Papavasileiou
 plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
   color_ramp <- grDevices::colorRampPalette(c(
     "#58E370", "#EBE126",
@@ -240,6 +240,7 @@ plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
       name = "",
       values = color_ramp(length(unique(data$author)))
     ) +
+    scale_x_log10() +
     theme_classic() +
     theme(
       legend.position = "bottom",
@@ -261,7 +262,7 @@ plot_emoji_words_per_mess_dens <- function(data, emo = TRUE, bw = NULL) {
 #' @import ggplot2
 #' @import dplyr
 #'
-#' @author Emanuel Sommer
+#' @author Eleftheria Papavasileiou
 plot_emoji_words_per_mess_box <- function(data, emo = TRUE) {
   color_ramp <- colorRampPalette(c(
     "#58E370", "#EBE126",
@@ -277,6 +278,7 @@ plot_emoji_words_per_mess_box <- function(data, emo = TRUE) {
     geom_boxplot(alpha = 0.8, fill = "#58E370", col = "#3C252B") +
     labs(y = paste(axis_text, "per message"), x = "") +
     coord_flip() +
+    scale_y_log10()+
     theme_classic() +
     theme(text = element_text(size = 16),
           axis.text = element_text(size = 16))
