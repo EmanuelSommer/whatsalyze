@@ -20,5 +20,5 @@ ggplot2 object
 Density  plot of emojis or words per message (distinct users by fill/color)
 }
 \author{
-Emanuel Sommer
+Eleftheria Papavasileiou
 }

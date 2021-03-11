@@ -18,5 +18,5 @@ ggplot2 object
 Boxplot of emojis or words per message (distinct users)
 }
 \author{
-Emanuel Sommer
+Eleftheria Papavasileiou
 }
