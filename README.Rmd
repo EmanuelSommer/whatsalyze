@@ -57,6 +57,8 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
     - Longest chat streak
     - Total messages
     - Total words
+    - Words per message
+    - Total media and voicemails (only if chat is exported in german as implemented with german regular expression)
     - Messages per day
     - Words per day
 - Activity visualizations

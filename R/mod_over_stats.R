@@ -12,12 +12,22 @@ mod_over_stats_ui <- function(id){
   tagList(
     fluidRow(
       column(
+        width = 6,
+        shinydashboard::valueBoxOutput(ns("total_mess"), width = 0)
+      ),
+      column(
+        width = 6,
+        shinydashboard::valueBoxOutput(ns("media_voice"), width = 0)
+      )
+    ),
+    fluidRow(
+      column(
         width = 4,
         shinydashboard::valueBoxOutput(ns("total_time"), width = 0)
       ),
       column(
         width = 4,
-        shinydashboard::valueBoxOutput(ns("total_mess"), width = 0)
+        shinydashboard::valueBoxOutput(ns("streak"), width = 0)
       ),
       column(
         width = 4,
@@ -27,7 +37,7 @@ mod_over_stats_ui <- function(id){
     fluidRow(
       column(
         width = 4,
-        shinydashboard::valueBoxOutput(ns("streak"), width = 0)
+        shinydashboard::valueBoxOutput(ns("words_per_mess"), width = 0)
       ),
       column(
         width = 4,
@@ -106,6 +116,27 @@ mod_over_stats_server <- function(input, output, session, r){
     ) + 1
     shinydashboard::valueBox(round(sum(r$data()[["n_words"]]) / time_in_days, 3),
                              subtitle = "Words per day", icon = icon("keyboard"),
+                             color = "yellow", width = NULL
+    )
+  })
+  
+  # words per message
+  output$words_per_mess <- shinydashboard::renderValueBox({
+    shiny::req(r$data())
+    shinydashboard::valueBox(round(sum(r$data()[["n_words"]]) / nrow(r$data()),
+                                   2),
+                             subtitle = "Words per message",
+                             icon = icon("arrows-alt-h"),
+                             color = "yellow", width = NULL
+    )
+  })
+  
+  # sum of media and voicemails
+  output$media_voice <- shinydashboard::renderValueBox({
+    shiny::req(r$data())
+    shinydashboard::valueBox(sum(r$data()[["text"]] == "<Medien ausgeschlossen>"),
+                             subtitle = "Total media and voicemails",
+                             icon = icon("microphone-alt"),
                              color = "yellow", width = NULL
     )
   })
