@@ -92,6 +92,20 @@ app_ui <- function(request) {
                   tags$div(
                     style = "text-align: center;color: #3C252B;font-weight: bold;",
                     tags$h2(
+                      "The conversation starter"
+                    ),
+                    tags$h4(
+                      emo::ji_glue("After at least 5 days of awkward silence :smirking_face:")
+                      )
+                  ),
+                  plotOutput("comp_convstarter_plot")
+                ),
+                shinydashboard::box(
+                  title = "",
+                  width = NULL,
+                  tags$div(
+                    style = "text-align: center;color: #3C252B;font-weight: bold;",
+                    tags$h2(
                       "Messages per day over time"
                     )
                   ),

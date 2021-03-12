@@ -45,6 +45,10 @@ app_server <- function(input, output, session ) {
     shiny::req(r$data())
     plot_total_words(r$data())
   })
+  output$comp_convstarter_plot <- renderPlot({
+    shiny::req(r$data())
+    plot_conversation_starter(r$data())
+  })
   output$ts_mess_per_day_plot <- plotly::renderPlotly({
     shiny::req(r$data())
     plot_ts_mess_per_day(r$data())

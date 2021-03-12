@@ -338,3 +338,38 @@ plot_top10_emojis <- function(data, authors) {
   #   coord_flip() +
   #   theme_classic()
 }
+
+#' Barplot displaying the relative frequencies of the person who starts
+#' the conversations
+#'
+#' @param data tibble provided by the `prep_data()` function
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Eleftheria Papavasileiou
+plot_conversation_starter <- function(data) {
+  plot_data <- data %>%
+    mutate(day = as.Date(time)) %>%
+    select(day, author, time) %>%
+    group_by(day) %>%
+    summarise(first = first(author, order_by = time), .groups = "drop") %>%
+    mutate(day_lag = lag(day),
+           diff_day = day - day_lag) %>%
+    filter(diff_day > 4)
+  plot_data %>%
+    group_by(first) %>%
+    summarise(
+      n_starter = n(),
+      .groups = "drop"
+    ) %>%
+    ggplot(aes(x = first, y = n_starter)) +
+    geom_col(position = "dodge", alpha = 0.8, fill = "#58E370") +
+    labs(x = "", y = "Frequencies") +
+    coord_flip() +
+    theme_classic() +
+    theme(axis.text = element_text(size = 16),
+          legend.text = element_text(size = 16),
+          text = element_text(size = 16))
+}
