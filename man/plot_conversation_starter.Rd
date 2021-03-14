@@ -3,7 +3,7 @@
 \name{plot_conversation_starter}
 \alias{plot_conversation_starter}
 \title{Barplot displaying the relative frequencies of the person who starts
-the conversations}
+the conversations (after at least 5 days of no conversation)}
 \usage{
 plot_conversation_starter(data)
 }
@@ -15,7 +15,7 @@ ggplot2 object
 }
 \description{
 Barplot displaying the relative frequencies of the person who starts
-the conversations
+the conversations (after at least 5 days of no conversation)
 }
 \author{
 Eleftheria Papavasileiou

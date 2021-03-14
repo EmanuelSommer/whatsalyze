@@ -340,7 +340,7 @@ plot_top10_emojis <- function(data, authors) {
 }
 
 #' Barplot displaying the relative frequencies of the person who starts
-#' the conversations
+#' the conversations (after at least 5 days of no conversation)
 #'
 #' @param data tibble provided by the `prep_data()` function
 #'
@@ -365,6 +365,44 @@ plot_conversation_starter <- function(data) {
       .groups = "drop"
     ) %>%
     ggplot(aes(x = first, y = n_starter)) +
+    geom_col(position = "dodge", alpha = 0.8, fill = "#58E370") +
+    labs(x = "", y = "Frequencies") +
+    coord_flip() +
+    theme_classic() +
+    theme(axis.text = element_text(size = 16),
+          legend.text = element_text(size = 16),
+          text = element_text(size = 16))
+}
+
+
+#' Barplot displaying the relative frequencies of the person is the last person
+#' in the chat 
+#' 
+#' frequency of last message before a conversation break of at least 4 days
+#'
+#' @param data tibble provided by the `prep_data()` function
+#'
+#' @return ggplot2 object
+#' @import ggplot2
+#' @import dplyr
+#'
+#' @author Eleftheria Papavasileiou
+plot_last_man_standing <- function(data) {
+  plot_data <- data %>%
+    mutate(day = as.Date(time)) %>%
+    select(day, author, time) %>%
+    group_by(day) %>%
+    summarise(last = last(author, order_by = time), .groups = "drop") %>%
+    mutate(day_lead = lead(day),
+           diff_day = day_lead - day) %>%
+    filter(diff_day > 3)
+  plot_data %>%
+    group_by(last) %>%
+    summarise(
+      n_last = n(),
+      .groups = "drop"
+    ) %>%
+    ggplot(aes(x = last, y = n_last)) +
     geom_col(position = "dodge", alpha = 0.8, fill = "#58E370") +
     labs(x = "", y = "Frequencies") +
     coord_flip() +

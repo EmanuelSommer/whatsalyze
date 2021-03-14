@@ -106,6 +106,20 @@ app_ui <- function(request) {
                   tags$div(
                     style = "text-align: center;color: #3C252B;font-weight: bold;",
                     tags$h2(
+                      "Last man standing"
+                    ),
+                    tags$h4(
+                      emo::ji_glue("At least 4 days of alone :pensive:")
+                    )
+                  ),
+                  plotOutput("comp_last_man_standing_plot")
+                ),
+                shinydashboard::box(
+                  title = "",
+                  width = NULL,
+                  tags$div(
+                    style = "text-align: center;color: #3C252B;font-weight: bold;",
+                    tags$h2(
                       "Messages per day over time"
                     )
                   ),

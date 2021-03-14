@@ -49,6 +49,10 @@ app_server <- function(input, output, session ) {
     shiny::req(r$data())
     plot_conversation_starter(r$data())
   })
+  output$comp_last_man_standing_plot <- renderPlot({
+    shiny::req(r$data())
+    plot_last_man_standing(r$data())
+  })
   output$ts_mess_per_day_plot <- plotly::renderPlotly({
     shiny::req(r$data())
     plot_ts_mess_per_day(r$data())

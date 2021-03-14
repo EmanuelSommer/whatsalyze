@@ -58,6 +58,9 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
   - Visualization of message and word frequencies by user
   - Visualization of the frequency of conversation starters by user
     (after at least 5 days)
+  - Visualization of the frequency of the last man standing ;) (how
+    often one wrote the last message before a conversation break of at
+    least 4 days)
   - Visualization of time vs messages sent per day (also by user)
   - Density plots (Gaussian kernel variable bandwidth) of words and
     emojis per message by user respectively

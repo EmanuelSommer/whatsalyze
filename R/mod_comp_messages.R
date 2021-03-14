@@ -20,19 +20,19 @@ mod_comp_messages_ui <- function(id){
           tags$div(
             style = "text-align: center;color: #3C252B;font-weight: bold;",
             tags$h2(
-              "Density estimate"
+              "Boxplot"
             )
           ),
-          uiOutput(ns("bw_select_words")),
-          plotOutput(ns("words_per_mess_dens")),
+          plotOutput(ns("words_per_mess_box")),
           tags$hr(),
           tags$div(
             style = "text-align: center;color: #3C252B;font-weight: bold;",
             tags$h2(
-              "Boxplot"
+              "Density estimate"
             )
           ),
-          plotOutput(ns("words_per_mess_box"))
+          uiOutput(ns("bw_select_words")),
+          plotOutput(ns("words_per_mess_dens"))
         )
       ),
       column(
@@ -43,19 +43,19 @@ mod_comp_messages_ui <- function(id){
           tags$div(
             style = "text-align: center;color: #3C252B;font-weight: bold;",
             tags$h2(
-              "Density estimate"
+              "Boxplot"
             )
           ),
-          uiOutput(ns("bw_select_emojis")),
-          plotOutput(ns("emojis_per_mess_dens")),
+          plotOutput(ns("emojis_per_mess_box")),
           tags$hr(),
           tags$div(
             style = "text-align: center;color: #3C252B;font-weight: bold;",
             tags$h2(
-              "Boxplot"
+              "Density estimate"
             )
           ),
-          plotOutput(ns("emojis_per_mess_box"))
+          uiOutput(ns("bw_select_emojis")),
+          plotOutput(ns("emojis_per_mess_dens"))
         )
       )
     )
@@ -72,14 +72,14 @@ mod_comp_messages_server <- function(input, output, session, r){
     shiny::req(r$data())
     numericInput(ns("bw_words"),
                  label = "Change kernel bandwidth",
-                 value = round(stats::bw.nrd0(r$data()$n_words),5),
-                 min = 0, step = 0.5)
+                 value = round(stats::bw.nrd0(log10(r$data()$n_words + 1e-10)),5),
+                 min = 0, step = 0.1)
   })
   output$bw_select_emojis <- renderUI({
     shiny::req(r$data())
     numericInput(ns("bw_emojis"),
                  label = "Change kernel bandwidth",
-                 value = round(stats::bw.nrd0(r$data()$n_emojis),5),
+                 value = round(stats::bw.nrd0(log10(r$data()$n_emojis + 1e-10)),5),
                  min = 0, step = 0.1)
   })
   # density plots:

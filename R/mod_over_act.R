@@ -40,7 +40,9 @@ mod_over_act_ui <- function(id){
                                   "Thursday", "Friday", "Saturday",
                                   "Sunday"),
                       multiple = TRUE,
-                      selected = "Monday"),
+                      selected = c("Monday", "Tuesday", "Wednesday",
+                                   "Thursday", "Friday", "Saturday",
+                                   "Sunday")),
           plotOutput(ns("act_by_day"))
         )
       )
