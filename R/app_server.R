@@ -41,23 +41,7 @@ app_server <- function(input, output, session ) {
   callModule(mod_over_stats_server, "over_stats_ui", r = r)
   callModule(mod_over_act_server, "over_act_ui", r = r)
   # Compare them! section
-  output$comp_overall_plot <- renderPlot({
-    shiny::req(r$data())
-    plot_total_words(r$data())
-  })
-  output$comp_convstarter_plot <- renderPlot({
-    shiny::req(r$data())
-    plot_conversation_starter(r$data())
-  })
-  output$comp_last_man_standing_plot <- renderPlot({
-    shiny::req(r$data())
-    plot_last_man_standing(r$data())
-  })
-  output$ts_mess_per_day_plot <- plotly::renderPlotly({
-    shiny::req(r$data())
-    plot_ts_mess_per_day(r$data())
-  })
-  
+  callModule(mod_comp_overall_server, "comp_overall_ui", r = r)
   callModule(mod_comp_messages_server, "comp_messages_ui", r = r)
   callModule(mod_comp_emojis_server, "comp_emojis_ui", r = r)
   

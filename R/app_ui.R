@@ -70,64 +70,7 @@ app_ui <- function(request) {
           # Compare them  ##########################################
           tabItem(
             tabName = "comp_overall",
-            fluidRow(
-              column(2),
-              column(
-                8,
-                tags$br(),
-                shinydashboard::box(
-                  title = "",
-                  width = NULL,
-                  tags$div(
-                    style = "text-align: center;color: #3C252B;font-weight: bold;",
-                    tags$h2(
-                      "Message and word frequencies"
-                    )
-                  ),
-                  plotOutput("comp_overall_plot")
-                ),
-                shinydashboard::box(
-                  title = "",
-                  width = NULL,
-                  tags$div(
-                    style = "text-align: center;color: #3C252B;font-weight: bold;",
-                    tags$h2(
-                      "The conversation starter"
-                    ),
-                    tags$h4(
-                      emo::ji_glue("After at least 5 days of awkward silence :smirking_face:")
-                      )
-                  ),
-                  plotOutput("comp_convstarter_plot")
-                ),
-                shinydashboard::box(
-                  title = "",
-                  width = NULL,
-                  tags$div(
-                    style = "text-align: center;color: #3C252B;font-weight: bold;",
-                    tags$h2(
-                      "Last man standing"
-                    ),
-                    tags$h4(
-                      emo::ji_glue("At least 4 days of alone :pensive:")
-                    )
-                  ),
-                  plotOutput("comp_last_man_standing_plot")
-                ),
-                shinydashboard::box(
-                  title = "",
-                  width = NULL,
-                  tags$div(
-                    style = "text-align: center;color: #3C252B;font-weight: bold;",
-                    tags$h2(
-                      "Messages per day over time"
-                    )
-                  ),
-                  plotly::plotlyOutput("ts_mess_per_day_plot")
-                )
-              ),
-              column(2)
-            )
+            mod_comp_overall_ui("comp_overall_ui")
           ),
           tabItem(
             tabName = "comp_messages",
