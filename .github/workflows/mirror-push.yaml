@@ -7,7 +7,12 @@ name: Mirrorpush
 on:
   push:
     branches:
-    - '**'
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,4 +28,4 @@ jobs:
       with:
         REMOTE: 'https://github.com/Eleftheria1/whatsalyze.git'
         GIT_USERNAME: Eleftheria1
-        GIT_PASSWORD: ${{ secrets.GIT_PASSWORD }}
+        GIT_PASSWORD: ${{ secrets.GIT_PASSWORT }}
