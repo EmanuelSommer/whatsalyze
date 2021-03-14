@@ -1,6 +1,12 @@
 
 # whatsalyze <img src="inst/app/www/hex-whatsalyze.png" align="right" width="120" />
 
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/EmanuelSommer/whatsalyze/workflows/R-CMD-check/badge.svg)](https://github.com/EmanuelSommer/whatsalyze/actions)
+<!-- badges: end -->
+
 Whatsalyze provides a shiny app to analyze your whatsapp chats\! You can
 easily import your chats as exported `<chat>.txt` files and get some fun
 insights\! 🕵
