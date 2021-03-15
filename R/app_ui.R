@@ -33,7 +33,10 @@ app_ui <- function(request) {
                    menuSubItem(text = "By message", tabName = "comp_messages"),
                    menuSubItem(text = "Emojis", tabName = "comp_emojis"),
                    icon = icon("chart-bar")
-          )
+          ),
+          menuItem(text = "Multi compare",
+                   tabName = "multi_comp",
+                   icon = icon("balance-scale"))
         ),
         tags$br(),
         fluidRow(
@@ -79,6 +82,17 @@ app_ui <- function(request) {
           tabItem(
             tabName = "comp_emojis",
             mod_comp_emojis_ui("comp_emojis_ui")
+          ),
+          tabItem(
+            tabName = "multi_comp",
+            tags$div(
+              style = "text-align: center;color: #3C252B;font-weight: bold;",
+              tags$h2(
+                emo::ji_glue("Let's compare multiple chats! :balance_scale:")
+              )
+            ),
+            tags$br(),
+            mod_multi_table_ui("multi_table_ui")
           )
         )
       )

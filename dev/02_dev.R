@@ -19,7 +19,7 @@ usethis::use_package( "shiny.info" )
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module( name = "comp_overall" ) # Name of the module
+golem::add_module( name = "multi_table" ) # Name of the module
 golem::add_module( name = "comp_emojis" ) # Name of the module
 
 ## Add helper functions ----

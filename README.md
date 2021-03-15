@@ -72,6 +72,8 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
     emojis per message by user respectively
   - Boxplot of words and emojis per message by user respectively
   - Visualization of the top 10 emojis used by user
+  - Compare key chat metrics (overall stats) from **multiple** chats in
+    a tabular fashion
 
 **If you have any suggestions for improvement or issues I would really
 like to hear from you\!**

@@ -23,7 +23,8 @@ app_server <- function(input, output, session ) {
   
   # global reactive values for all modules
   r <- reactiveValues(
-    data = NULL
+    data = NULL,
+    multi_table = NULL
   )
   # main colors: "#58E370" "#EBE126" "#DE793B" "#A84448" "#3C252B"
   r$data <- reactive({
@@ -44,5 +45,6 @@ app_server <- function(input, output, session ) {
   callModule(mod_comp_overall_server, "comp_overall_ui", r = r)
   callModule(mod_comp_messages_server, "comp_messages_ui", r = r)
   callModule(mod_comp_emojis_server, "comp_emojis_ui", r = r)
-  
+  # multi compare section
+  callModule(mod_multi_table_server, "multi_table_ui", r = r)
 }
