@@ -14,6 +14,9 @@ shiny::modalDialog object
 }
 \description{
 Helper to get a consistent dialog modal for the fileInput
+\itemize{
+\item Action button to use test chat data (server logic in main server file)
+}
 }
 \author{
 Emanuel Sommer

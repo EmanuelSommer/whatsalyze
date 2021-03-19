@@ -26,14 +26,25 @@ app_server <- function(input, output, session ) {
     data = NULL,
     multi_table = NULL
   )
+  
+  # allow the user to use test data
+  r$data <- eventReactive(input$use_test_data, {
+    test_chat_data
+  })
+  
   # main colors: "#58E370" "#EBE126" "#DE793B" "#A84448" "#3C252B"
-  r$data <- reactive({
-    if (!is.null(input$file)) {
-      prep_data(
-        rwhatsapp::rwa_read(input$file$datapath)
-      )
+  r$data <- eventReactive(input$upload_button, {
+    if (input$use_test_data) {
+      test_chat_data
+    } else {
+      if (!is.null(input$file)) {
+        prep_data(
+          rwhatsapp::rwa_read(input$file$datapath)
+        )
+      }
     }
   })
+  
   
   ##########################################################
   #                   Analysis

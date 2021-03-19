@@ -32,8 +32,9 @@ mod_multi_table_ui <- function(id){
                   label = "Name of the chat (required)",
                   value = ""),
         actionButton(ns("submit_chat"),
+                     width = "100%",
                      label = "Submit chat to comparison",
-                     icon = icon("check"))
+                     icon = icon("file-upload"))
       ),
       shinydashboard::box(
         width = 12,
@@ -88,6 +89,8 @@ mod_multi_table_server <- function(input, output, session, r){
           dplyr::bind_rows(new_table_elements) %>%
           dplyr::arrange(desc(messages_per_day))
       }
+      updateTextInput(inputId = "chatname",
+                      value = "")
     }
   })
   

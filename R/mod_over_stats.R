@@ -17,7 +17,7 @@ mod_over_stats_ui <- function(id){
       ),
       column(
         width = 6,
-        shinydashboard::valueBoxOutput(ns("media_voice"), width = 0)
+        shinydashboard::valueBoxOutput(ns("streak"), width = 0)
       )
     ),
     fluidRow(
@@ -27,11 +27,11 @@ mod_over_stats_ui <- function(id){
       ),
       column(
         width = 4,
-        shinydashboard::valueBoxOutput(ns("streak"), width = 0)
+        shinydashboard::valueBoxOutput(ns("total_words"), width = 0)
       ),
       column(
         width = 4,
-        shinydashboard::valueBoxOutput(ns("total_words"), width = 0)
+        shinydashboard::valueBoxOutput(ns("media_voice"), width = 0)
       )
     ),
     fluidRow(

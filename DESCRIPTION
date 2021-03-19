@@ -27,7 +27,8 @@ Imports:
     ggtext,
     lubridate,
     plotly,
-    shiny.info
+    shiny.info,
+    pkgload
 Remotes:
     github::hadley/emo
 Encoding: UTF-8
@@ -38,3 +39,5 @@ Suggests:
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/EmanuelSommer/whatsalyze
 BugReports: https://github.com/EmanuelSommer/whatsalyze/issues
+Depends: 
+    R (>= 2.10)
