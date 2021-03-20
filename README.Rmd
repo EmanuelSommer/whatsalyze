@@ -26,6 +26,8 @@ It is written using the golem framework for production-grade and robust shiny ap
 
 [*DEMO LINK*](https://esommer.shinyapps.io/whatsalyze/)
 
+For local use see below!
+
 ## Installation
 
 You can install the current version of `whatsalyze` from Github with:
@@ -87,5 +89,5 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
 ***
 
 <center>
-`r emo::ji("waving_hand")` **Have fun!** `r emo::ji("waving_hand")`
+`r emo::ji("waving_hand")` Have fun! `r emo::ji("waving_hand")`
 </center>

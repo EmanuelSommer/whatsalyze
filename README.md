@@ -20,6 +20,8 @@ also the integration of documentation (roxygen2) and tests (testthat).
 
 [*DEMO LINK*](https://esommer.shinyapps.io/whatsalyze/)
 
+For local use see below!
+
 ## Installation
 
 You can install the current version of `whatsalyze` from Github with:
@@ -85,5 +87,5 @@ like to hear from you!**
 ------------------------------------------------------------------------
 
 <center>
-👋 **Have fun!** 👋
+👋 Have fun! 👋
 </center>
