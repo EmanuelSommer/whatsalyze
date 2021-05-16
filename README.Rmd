@@ -63,6 +63,7 @@ For more information on the input format see `rwhatsapp::rwa_read()`.
 - Overall stats
     - Duration in days
     - Longest chat streak
+    - Percentage of days chatted
     - Total messages
     - Total words
     - Words per message

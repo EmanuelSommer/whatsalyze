@@ -12,12 +12,16 @@ mod_over_stats_ui <- function(id){
   tagList(
     fluidRow(
       column(
-        width = 6,
+        width = 4,
         shinydashboard::valueBoxOutput(ns("total_mess"), width = 0)
       ),
       column(
-        width = 6,
+        width = 4,
         shinydashboard::valueBoxOutput(ns("streak"), width = 0)
+      ),
+      column(
+        width = 4,
+        shinydashboard::valueBoxOutput(ns("time_perc"), width = 0)
       )
     ),
     fluidRow(
@@ -65,6 +69,19 @@ mod_over_stats_server <- function(input, output, session, r){
     ) + 1
     shinydashboard::valueBox(time_in_days,
                              subtitle = "Duration in days", icon = icon("clock"),
+                             color = "yellow", width = NULL
+    )
+  })
+  
+  # percentage of days chatted
+  output$time_perc <- shinydashboard::renderValueBox({
+    shiny::req(r$data())
+    time_in_days <- as.numeric(
+      as.Date(max(r$data()[["time"]])) - as.Date(min(r$data()[["time"]]))
+    ) + 1
+    days_chatted <- length(unique(as.Date(r$data()[["time"]])))
+    shinydashboard::valueBox(round(days_chatted / time_in_days, 2) * 100,
+                             subtitle = "% days chatted", icon = icon("history"),
                              color = "yellow", width = NULL
     )
   })

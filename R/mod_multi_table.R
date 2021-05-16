@@ -70,24 +70,27 @@ mod_multi_table_server <- function(input, output, session, r){
       time_in_days <- as.numeric(
         as.Date(max(temp_data[["time"]])) - as.Date(min(temp_data[["time"]]))
       ) + 1
-      new_table_elements$messages_per_day <- round(nrow(temp_data) / 
+      days_chatted <- length(unique(as.Date(temp_data[["time"]])))
+      new_table_elements$mess_per_day <- round(nrow(temp_data) / 
                                                      time_in_days, 3)
       new_table_elements$words_per_day <- round(sum(temp_data[["n_words"]]) / 
                                                   time_in_days, 3)
       new_table_elements$streak <- get_largest_streak(
         temp_data[["time"]])
-      new_table_elements$words_per_message <- round(
+      new_table_elements$words_per_mess <- round(
         sum(temp_data[["n_words"]]) / nrow(temp_data),3)
       new_table_elements$duration <- time_in_days
-      new_table_elements$messages <- nrow(temp_data)
+      new_table_elements$mess <- nrow(temp_data)
       new_table_elements$words <- sum(temp_data[["n_words"]])
+      new_table_elements$perc_days <- round(days_chatted /
+                                              time_in_days, 2) * 100
       
       if(is.null(r$multi_table)) {
         r$multi_table <- new_table_elements
       } else {
         r$multi_table <- r$multi_table %>%
           dplyr::bind_rows(new_table_elements) %>%
-          dplyr::arrange(desc(messages_per_day))
+          dplyr::arrange(desc(mess_per_day))
       }
       updateTextInput(inputId = "chatname",
                       value = "")
