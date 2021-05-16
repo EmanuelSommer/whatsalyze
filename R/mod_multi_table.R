@@ -92,7 +92,8 @@ mod_multi_table_server <- function(input, output, session, r){
           dplyr::bind_rows(new_table_elements) %>%
           dplyr::arrange(desc(mess_per_day))
       }
-      updateTextInput(inputId = "chatname",
+      updateTextInput(session = session, 
+                      inputId = "chatname",
                       value = "")
     }
   })
